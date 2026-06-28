@@ -1,0 +1,91 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
+}
+
+<div class="login-page">
+  <div class="login-grid">
+
+    <!-- Hero Panel -->
+    <div class="login-hero">
+      <div>
+        <div class="hero-logo">
+          <span style="color:#fff;opacity:.5">◆</span> AddressHub
+        </div>
+        <h1 class="hero-title">
+          Gerencie seus<br /><em>endereços</em><br />com precisão.
+        </h1>
+        <p class="hero-desc">
+          Plataforma integrada com ViaCEP para cadastro<br />
+          e exportação de endereços de forma rápida e segura.
+        </p>
+        <ul class="hero-features">
+          <li>Busca automática por CEP</li>
+          <li>CRUD completo de endereços</li>
+          <li>Exportação para CSV com um clique</li>
+          <li>Interface responsiva e segura</li>
+        </ul>
+      </div>
+      <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:0.08em">
+        © @DateTime.Now.Year AddressHub · Todos os direitos reservados
+      </div>
+    </div>
+
+    <!-- Form Panel -->
+    <div class="login-form-panel">
+      <h2>Entrar</h2>
+      <p class="subtitle">Acesse sua conta para continuar</p>
+
+      @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ContainsKey(string.Empty))
+      {
+        <div class="alert alert-danger" data-auto-dismiss="5000">
+          ⚠ @Html.ValidationSummary(true, "", new { @class = "mb-0" })
+        </div>
+      }
+
+      <form asp-controller="Account" asp-action="Login" method="post" novalidate>
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+
+        <div class="form-group">
+          <label asp-for="Usuario"></label>
+          <input asp-for="Usuario"
+                 class="form-control @(ViewData.ModelState["Usuario"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                 placeholder="seu_usuario"
+                 autocomplete="username"
+                 autofocus />
+          <span asp-validation-for="Usuario" class="invalid-feedback"></span>
+        </div>
+
+        <div class="form-group">
+          <label asp-for="Senha"></label>
+          <input asp-for="Senha"
+                 type="password"
+                 class="form-control @(ViewData.ModelState["Senha"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                 placeholder="••••••••"
+                 autocomplete="current-password" />
+          <span asp-validation-for="Senha" class="invalid-feedback"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg mt-2">
+          Acessar Sistema →
+        </button>
+
+        <p class="mt-2 text-muted" style="font-size:0.78rem;text-align:center">
+          Credencial padrão: <strong style="color:var(--accent-cyan)">admin</strong> / <strong style="color:var(--accent-cyan)">Admin@123</strong>
+        </p>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+@section Scripts {
+  <script>
+    // Highlight validation errors from server
+    document.querySelectorAll('.field-validation-error').forEach(el => {
+      el.closest('.form-group')?.querySelector('.form-control')?.classList.add('is-invalid');
+    });
+  </script>
+}

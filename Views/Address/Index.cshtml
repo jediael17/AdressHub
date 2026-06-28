@@ -1,0 +1,126 @@
+@model IEnumerable<AddressManager.Models.Endereco>
+@{
+    ViewData["Title"] = "Meus Endereços";
+}
+
+<div class="page-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <div class="page-subtitle">Gerenciamento</div>
+      <h1>Meus <span>Endereços</span></h1>
+    </div>
+    <div class="d-flex gap-2">
+      @if (Model.Any())
+      {
+        <a asp-action="ExportarCsv" class="btn btn-success btn-sm">
+          ⬇ Exportar CSV
+        </a>
+      }
+      <a asp-action="Create" class="btn btn-cyan">
+        + Novo Endereço
+      </a>
+    </div>
+  </div>
+
+  <!-- Feedback -->
+  @if (TempData["Success"] != null)
+  {
+    <div class="alert alert-success" data-auto-dismiss="4000">
+      ✓ @TempData["Success"]
+    </div>
+  }
+  @if (TempData["Info"] != null)
+  {
+    <div class="alert alert-info" data-auto-dismiss="4000">
+      ℹ @TempData["Info"]
+    </div>
+  }
+
+  <!-- Table or Empty -->
+  <div class="card">
+    <div class="card-body" style="padding:0">
+      @if (!Model.Any())
+      {
+        <div class="empty-state">
+          <div class="icon">📍</div>
+          <h3>Nenhum endereço cadastrado</h3>
+          <p>Clique em "Novo Endereço" para começar ou informe um CEP para preenchimento automático.</p>
+          <a asp-action="Create" class="btn btn-cyan">+ Adicionar primeiro endereço</a>
+        </div>
+      }
+      else
+      {
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>CEP</th>
+                <th>Logradouro</th>
+                <th>Nº</th>
+                <th class="hide-mobile">Bairro</th>
+                <th>Cidade</th>
+                <th>UF</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach (var e in Model)
+              {
+                <tr>
+                  <td style="font-family:'Rajdhani',sans-serif;letter-spacing:0.05em">
+                    @e.Cep.Insert(5, "-")
+                  </td>
+                  <td>
+                    @e.Logradouro
+                    @if (!string.IsNullOrEmpty(e.Complemento))
+                    {
+                      <span class="text-muted" style="font-size:0.8rem"> · @e.Complemento</span>
+                    }
+                  </td>
+                  <td>@e.Numero</td>
+                  <td class="hide-mobile text-muted">@e.Bairro</td>
+                  <td>@e.Cidade</td>
+                  <td><span class="badge-uf">@e.Uf</span></td>
+                  <td>
+                    <div class="actions">
+                      <a asp-action="Edit" asp-route-id="@e.Id" class="btn btn-ghost btn-sm">
+                        <span class="material-symbols-outlined">edit_document</span>
+                      </a>
+                      <button type="submit"
+                                class="btn btn-danger btn-sm"
+                                onclick="abrirModal(@e.Id)">
+                          <span class="material-symbols-outlined">delete</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div style="padding:0.75rem 1rem;border-top:1px solid var(--border-line);
+                    font-size:0.78rem;color:var(--text-muted);display:flex;justify-content:space-between">
+          <span>@Model.Count() endereço(s) cadastrado(s)</span>
+        </div>
+      }
+    </div>
+  </div>
+  <!-- Modal de confirmação -->
+  <div id="modalExcluir" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:999;align-items:center;justify-content:center;">
+    <div style="background:var(--bg-card);border:1px solid var(--border-line);border-radius:8px;padding:2rem;max-width:400px;width:90%;position:relative;">
+      <h3 style="font-family:var(--font-display);margin-bottom:0.5rem;">Confirmar exclusão</h3>
+      <p style="color:var(--text-muted);margin-bottom:1.5rem;">Tem certeza que deseja excluir este endereço? Esta ação não pode ser desfeita.</p>
+      <div style="display:flex;justify-content:flex-end;gap:0.75rem;">
+        <button onclick="fecharModal()" class="btn btn-ghost">Cancelar</button>
+        <form id="formExcluir" method="post">
+          @Html.AntiForgeryToken()
+          <button type="submit" class="btn btn-danger">Sim, excluir</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

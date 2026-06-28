@@ -1,0 +1,75 @@
+@model AddressManager.ViewModels.EnderecoViewModel
+
+<div class="card">
+  <div class="card-body">
+
+    <!-- CEP Row -->
+    <div class="form-group">
+      <label asp-for="Cep"></label>
+      <div class="input-group">
+        <input asp-for="Cep"
+               class="form-control @(ViewData.ModelState["Cep"]?.Errors.Count > 0 ? "is-invalid" : "")"
+               placeholder="00000000"
+               maxlength="8"
+               inputmode="numeric" />
+        <button type="button" id="btnBuscarCep" class="btn btn-cyan">
+          Buscar CEP
+          <span id="cepLoader" class="cep-loader"></span>
+        </button>
+      </div>
+      <span asp-validation-for="Cep" class="invalid-feedback"></span>
+    </div>
+
+    <!-- Main grid -->
+    <div class="form-grid">
+      <div class="col-span-2">
+        <label asp-for="Logradouro"></label>
+        <input asp-for="Logradouro"
+               class="form-control @(ViewData.ModelState["Logradouro"]?.Errors.Count > 0 ? "is-invalid" : "")"
+               placeholder="Rua, Avenida, Travessa..." />
+        <span asp-validation-for="Logradouro" class="invalid-feedback"></span>
+      </div>
+
+      <div>
+        <label asp-for="Numero"></label>
+        <input asp-for="Numero"
+               class="form-control @(ViewData.ModelState["Numero"]?.Errors.Count > 0 ? "is-invalid" : "")"
+               placeholder="123" />
+        <span asp-validation-for="Numero" class="invalid-feedback"></span>
+      </div>
+
+      <div>
+        <label asp-for="Complemento"></label>
+        <input asp-for="Complemento"
+               class="form-control"
+               placeholder="Apto, Sala, Bloco... (opcional)" />
+      </div>
+
+      <div>
+        <label asp-for="Bairro"></label>
+        <input asp-for="Bairro"
+               class="form-control @(ViewData.ModelState["Bairro"]?.Errors.Count > 0 ? "is-invalid" : "")"
+               placeholder="Bairro" />
+        <span asp-validation-for="Bairro" class="invalid-feedback"></span>
+      </div>
+
+      <div>
+        <label asp-for="Cidade"></label>
+        <input asp-for="Cidade"
+               class="form-control @(ViewData.ModelState["Cidade"]?.Errors.Count > 0 ? "is-invalid" : "")"
+               placeholder="Cidade" />
+        <span asp-validation-for="Cidade" class="invalid-feedback"></span>
+      </div>
+
+      <div style="max-width:120px">
+        <label asp-for="Uf"></label>
+        <input asp-for="Uf"
+               class="form-control @(ViewData.ModelState["Uf"]?.Errors.Count > 0 ? "is-invalid" : "")"
+               placeholder="SP"
+               maxlength="2" />
+        <span asp-validation-for="Uf" class="invalid-feedback"></span>
+      </div>
+    </div>
+
+  </div>
+</div>

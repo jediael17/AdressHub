@@ -1,0 +1,27 @@
+@model AddressManager.ViewModels.EnderecoViewModel
+@{
+    ViewData["Title"] = "Novo Endereço";
+}
+
+<div class="page-container" style="max-width:780px">
+
+  <div class="page-header">
+    <div>
+      <div class="page-subtitle">Cadastro</div>
+      <h1>Novo <span>Endereço</span></h1>
+    </div>
+    <a asp-action="Index" class="btn btn-ghost btn-sm">← Voltar</a>
+  </div>
+
+  <form asp-action="Create" method="post" novalidate>
+    @Html.AntiForgeryToken()
+
+    @await Html.PartialAsync("_AddressForm", Model)
+
+    <div class="d-flex gap-2 mt-2" style="justify-content:flex-end">
+      <a asp-action="Index" class="btn btn-ghost">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Salvar Endereço</button>
+    </div>
+  </form>
+
+</div>

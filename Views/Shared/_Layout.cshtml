@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] — AddressHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
+  <link rel="icon" type="image/png" href="~/img/AddressHub.ico" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+  <div class="scan-line" aria-hidden="true"></div>
+
+  @if (User.Identity?.IsAuthenticated == true)
+  {
+    <nav class="navbar">
+      <a class="navbar-brand" asp-controller="Address" asp-action="Index">
+        <span class="brand-dot"></span>
+        Address<span style="color:#fff;opacity:.6">Hub</span>
+      </a>
+      <div class="navbar-user">
+        <span>Olá, <span class="user-name">@User.Identity.Name</span></span>
+        <form asp-controller="Account" asp-action="Logout" method="post" style="margin:0">
+          @Html.AntiForgeryToken()
+          <button type="submit" class="btn btn-ghost btn-sm">Sair</button>
+        </form>
+      </div>
+    </nav>
+  }
+
+  <main>
+    @RenderBody()
+  </main>
+
+  <script src="~/js/main.js" asp-append-version="true"></script>
+  @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
