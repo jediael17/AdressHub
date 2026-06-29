@@ -173,7 +173,3 @@ http://localhost:5000
 | Modal de confirmação        | `feat: add delete confirmation modal`   |
 
 ---
-
-## Licença
-
-Este projeto foi desenvolvido como teste técnico e é de uso exclusivo do avaliador.
