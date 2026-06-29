@@ -2,7 +2,7 @@
 
 'use strict';
 
-// ── CEP auto-fill ───────────────────────────────────────────────────────────
+// ── CEP auto
 
 function initCepLookup() {
   const cepInput = document.getElementById('Cep');
@@ -50,7 +50,7 @@ function initCepLookup() {
 
   if (btn) btn.addEventListener('click', buscarCep);
 
-  // Also trigger on Enter key inside CEP input
+  // Acionamento da tecla Enter
   cepInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -58,7 +58,7 @@ function initCepLookup() {
     }
   });
 
-  // Auto-format CEP mask
+  // Formatação automática do campo de CEP
   cepInput.addEventListener('input', () => {
     cepInput.value = cepInput.value.replace(/\D/g, '').slice(0, 8);
   });
@@ -69,7 +69,7 @@ function setField(id, value) {
   if (el && value) el.value = value;
 }
 
-// ── Delete confirmation ─────────────────────────────────────────────────────
+// ── Confirmação de exclusão
 
 function initDeleteConfirm() {
   document.querySelectorAll('[data-confirm]').forEach(btn => {
@@ -80,7 +80,7 @@ function initDeleteConfirm() {
   });
 }
 
-// ── Auto-dismiss alerts ─────────────────────────────────────────────────────
+// ── Ignorar alertas 
 
 function initAlerts() {
   document.querySelectorAll('.alert[data-auto-dismiss]').forEach(el => {
@@ -93,7 +93,7 @@ function initAlerts() {
   });
 }
 
-// ── Toast notification ──────────────────────────────────────────────────────
+// ── Notificação 
 
 function showToast(message, type = 'info') {
   const existing = document.getElementById('toast-container');
@@ -152,7 +152,7 @@ function showToast(message, type = 'info') {
   }, 3500);
 }
 
-// ── UF uppercase ────────────────────────────────────────────────────────────
+// ── UF uppercase 
 
 function initUfInput() {
   const uf = document.getElementById('Uf');
@@ -163,7 +163,7 @@ function initUfInput() {
   }
 }
 
-// ── Init ────────────────────────────────────────────────────────────────────
+// ── Init 
 
 document.addEventListener('DOMContentLoaded', () => {
   initCepLookup();
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initUfInput();
 });
 
-// ── Modal for delete confirmation ───────────────────────────────────────────
+// ── Modal de confirmação de exclusão 
 
 function abrirModal(id) {
   const modal = document.getElementById('modalExcluir');
