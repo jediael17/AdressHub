@@ -168,7 +168,6 @@ http://localhost:5000
 | CRUD de endereços           | `feat: implement address CRUD`          |
 | Integração ViaCEP           | `feat: integrate ViaCEP API`            |
 | Exportação CSV              | `feat: add CSV export`                  |
-| Design futurístico          | `feat: futuristic dark UI`              |
 | Migração para PostgreSQL    | `feat: migrate to PostgreSQL`           |
 | Modal de confirmação        | `feat: add delete confirmation modal`   |
 
